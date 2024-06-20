@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Difference Alert</title>
+    <style>
+        body {
+            background-color: yellow;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"] {
+            width: 200px;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        function showAlert() {
+            var inputDate = document.getElementById("dateInput").value;
+            var dateParts = inputDate.split("/");
+
+            if (dateParts.length !== 3) {
+                alert("Formato de data inválido. Por favor, use DD/MM/YYYY.");
+                return;
+            }
+
+            var day = parseInt(dateParts[0], 10);
+            var month = parseInt(dateParts[1], 10) - 1; // Janeiro é 0!
+            var year = parseInt(dateParts[2], 10);
+
+            var enteredDate = new Date(year, month, day);
+            var currentDate = new Date();
+
+            if (isNaN(enteredDate.getTime())) {
+                alert("Data inválida");
+                return;
+            }
+
+            // Calcular a diferença em milissegundos
+            var differenceInTime = enteredDate.getTime() - currentDate.getTime();
+
+            // Converter a diferença de milissegundos para dias
+            var differenceInDays = Math.ceil(differenceInTime / (1000 * 3600 * 24));
+            
+            alert("tem "+differenceInDays+ "dias")
+
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Quantos dias faltam?</h1>
+        <label for="dateInput">Enter a date (DD/MM/YYYY):</label>
+        <input type="text" id="dateInput" name="dateInput" placeholder="DD/MM/YYYY">
+        <button onclick="showAlert()">Enviar</button>
+    </div>
+</body>
+</html>
